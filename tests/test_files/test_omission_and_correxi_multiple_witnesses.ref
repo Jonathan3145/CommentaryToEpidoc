@@ -1,0 +1,17 @@
+    <rdg>
+        <choice>
+            <corr>ssss tttt</corr>
+        </choice>
+    </rdg>
+    <rdg wit="#W1">aaaa bbbb</rdg>
+    <rdg wit="#W2">aaaa bbbb</rdg>
+    <rdg wit="#W3">aaaa bbbb</rdg>
+    <rdg wit="#W4">
+        <gap reason="omission"/>
+    </rdg>
+    <rdg wit="#W5">
+        <gap reason="omission"/>
+    </rdg>
+    <rdg wit="#W6">
+        <gap reason="omission"/>
+    </rdg>

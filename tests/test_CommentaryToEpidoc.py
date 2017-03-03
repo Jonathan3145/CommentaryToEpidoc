@@ -102,7 +102,8 @@ class TestProcess(unittest.TestCase):
                   encoding="utf-8") as f:
             self.comtoepi.text = f.read().strip()
 
-        self.assertFalse(self.comtoepi.divide_document())
+        self.assertRaises(CommentaryToEpidocException,
+                          self.comtoepi.divide_document)
 
     # ################# read_template ###################
 

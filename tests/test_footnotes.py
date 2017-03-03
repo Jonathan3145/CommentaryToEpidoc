@@ -40,14 +40,14 @@ class TestFootnote(unittest.TestCase):
             text_ref = f.read()
 
         # Run the function with the input
-        list_out = []
         self.ft.footnote = text_in
-        self.ft.omission(list_out)
+        self.ft.xml = []
+        self.ft.omission()
 
         # Convert the output list to a string with each element on a new line
         # This is not good in a test you should not modify the results
         # before the test.
-        text_out = '\n'.join(list_out)
+        text_out = '\n'.join(self.ft.xml)
 
         self.assertEqual(text_out, text_ref)
 
@@ -69,14 +69,14 @@ class TestFootnote(unittest.TestCase):
             text_ref = f.read()
 
         # Run the function with the input
-        list_out = []
         self.ft.footnote = text_in
-        self.ft.omission(list_out)
+        self.ft.xml = []
+        self.ft.omission()
 
         # Convert the output list to a string with each element on a new line
         # This is not good in a test you should not modify the results
         # before the test.
-        text_out = '\n'.join(list_out)
+        text_out = '\n'.join(self.ft.xml)
 
         self.assertEqual(text_out, text_ref)
 
@@ -98,14 +98,14 @@ class TestFootnote(unittest.TestCase):
             text_ref = f.read()
 
         # Run the function with the input
-        list_out = []
         self.ft.footnote = text_in
-        self.ft.omission(list_out)
+        self.ft.xml = []
+        self.ft.omission()
 
         # Convert the output list to a string with each element on a new line
         # This is not good in a test you should not modify the results
         # before the test.
-        text_out = '\n'.join(list_out)
+        text_out = '\n'.join(self.ft.xml)
 
         self.assertEqual(text_out, text_ref)
 
@@ -126,14 +126,14 @@ class TestFootnote(unittest.TestCase):
             text_ref = f.read()
 
         # Run the function with the input
-        list_out = []
         self.ft.footnote = text_in
-        self.ft.omission(list_out)
+        self.ft.xml = []
+        self.ft.omission()
 
         # Convert the output list to a string with each element on a new line
         # This is not good in a test you should not modify the results
         # before the test.
-        text_out = '\n'.join(list_out)
+        text_out = '\n'.join(self.ft.xml)
 
         self.assertEqual(text_out, text_ref)
 
@@ -149,14 +149,39 @@ class TestFootnote(unittest.TestCase):
             text_ref = f.read()
 
         # Run the function with the input
-        list_out = []
         self.ft.footnote = text_in
-        self.ft.omission(list_out)
+        self.ft.xml = []
+        self.ft.omission()
 
         # Convert the output list to a string with each element on a new line
         # This is not good in a test you should not modify the results
         # before the test.
-        text_out = '\n'.join(list_out)
+        text_out = '\n'.join(self.ft.xml)
+
+        self.assertEqual(text_out, text_ref)
+
+    def test_omission_and_correxi_multiple_witnesses(self):
+        # Load text from input file
+        with open(path_testdata +
+                  'test_omission_and_correxi_multiple_witnesses.in',
+                  'r', encoding="utf-8") as f:
+            text_in = f.read()
+
+        # Load text from reference file
+        with open(path_testdata +
+                  'test_omission_and_correxi_multiple_witnesses.ref',
+                  'r', encoding="utf-8") as f:
+            text_ref = f.read()
+
+        # Run the function with the input
+        self.ft.footnote = text_in
+        self.ft.xml = []
+        self.ft.omission()
+
+        # Convert the output list to a string with each element on a new line
+        # This is not good in a test you should not modify the results
+        # before the test.
+        text_out = '\n'.join(self.ft.xml)
 
         self.assertEqual(text_out, text_ref)
 
@@ -172,14 +197,14 @@ class TestFootnote(unittest.TestCase):
             text_ref = f.read()
 
         # Run the function with the input
-        list_out = []
         self.ft.footnote = text_in
-        self.ft.omission(list_out)
+        self.ft.xml = []
+        self.ft.omission()
 
         # Convert the output list to a string with each element on a new line
         # This is not good in a test you should not modify the results
         # before the test.
-        text_out = '\n'.join(list_out)
+        text_out = '\n'.join(self.ft.xml)
 
         self.assertEqual(text_out, text_ref)
 
@@ -195,14 +220,14 @@ class TestFootnote(unittest.TestCase):
             text_ref = f.read()
 
         # Run the function with the input
-        list_out = []
+        self.ft.xml = []
         self.ft.footnote = text_in
-        self.ft.omission(list_out)
+        self.ft.omission()
 
         # Convert the output list to a string with each element on a new line
         # This is not good in a test you should not modify the results
         # before the test.
-        text_out = '\n'.join(list_out)
+        text_out = '\n'.join(self.ft.xml)
 
         self.assertEqual(text_out, text_ref)
 
@@ -225,13 +250,13 @@ class TestFootnote(unittest.TestCase):
             text_ref = f.read()
 
         # Run the function with the input
-        list_out = []
+        self.ft.xml = []
         self.ft.footnote = text_in
-        self.ft.correction('add', list_out)
+        self.ft.correction('add')
 
         # Convert the output list to a string with each element
         # on a new line
-        text_out = '\n'.join(list_out)
+        text_out = '\n'.join(self.ft.xml)
 
         self.assertEqual(text_out, text_ref)
 
@@ -255,13 +280,13 @@ class TestFootnote(unittest.TestCase):
             text_ref = f.read()
 
         # Run the function with the input
-        list_out = []
+        self.ft.xml = []
         self.ft.footnote = text_in
-        self.ft.correction('add', list_out)
+        self.ft.correction('add')
 
         # Convert the output list to a string with each element
         # on a new line
-        text_out = '\n'.join(list_out)
+        text_out = '\n'.join(self.ft.xml)
 
         self.assertEqual(text_out, text_ref)
 
@@ -286,13 +311,13 @@ class TestFootnote(unittest.TestCase):
             text_ref = f.read()
 
         # Run the function with the input
-        list_out = []
+        self.ft.xml = []
         self.ft.footnote = text_in
-        self.ft.correction('add', list_out)
+        self.ft.correction('add')
 
         # Convert the output list to a string with each element
         # on a new line
-        text_out = '\n'.join(list_out)
+        text_out = '\n'.join(self.ft.xml)
 
         self.assertEqual(text_out, text_ref)
 
@@ -319,13 +344,13 @@ class TestFootnote(unittest.TestCase):
             text_ref = f.read()
 
         # Run the function with the input
-        list_out = []
+        self.ft.xml = []
         self.ft.footnote = text_in
-        self.ft.correction('correxi', list_out)
+        self.ft.correction('correxi')
 
         # Convert the output list to a string with each element
         # on a new line
-        text_out = '\n'.join(list_out)
+        text_out = '\n'.join(self.ft.xml)
 
         self.assertEqual(text_out, text_ref)
 
@@ -350,13 +375,13 @@ class TestFootnote(unittest.TestCase):
             text_ref = f.read()
 
         # Run the function with the input
-        list_out = []
+        self.ft.xml = []
         self.ft.footnote = text_in
-        self.ft.correction('correxi', list_out)
+        self.ft.correction('correxi')
 
         # Convert the output list to a string with each element
         # on a new line
-        text_out = '\n'.join(list_out)
+        text_out = '\n'.join(self.ft.xml)
 
         self.assertEqual(text_out, text_ref)
 
@@ -381,13 +406,13 @@ class TestFootnote(unittest.TestCase):
             text_ref = f.read()
 
         # Run the function with the input
-        list_out = []
+        self.ft.xml = []
         self.ft.footnote = text_in
-        self.ft.correction('conieci', list_out)
+        self.ft.correction('conieci')
 
         # Convert the output list to a string with each element
         # on a new line
-        text_out = '\n'.join(list_out)
+        text_out = '\n'.join(self.ft.xml)
 
         self.assertEqual(text_out, text_ref)
 
@@ -412,13 +437,13 @@ class TestFootnote(unittest.TestCase):
             text_ref = f.read()
 
         # Run the function with the input
-        list_out = []
+        self.ft.xml = []
         self.ft.footnote = text_in
-        self.ft.correction('conieci', list_out)
+        self.ft.correction('conieci')
 
         # Convert the output list to a string with each element
         # on a new line
-        text_out = '\n'.join(list_out)
+        text_out = '\n'.join(self.ft.xml)
 
         self.assertEqual(text_out, text_ref)
 
@@ -440,12 +465,12 @@ class TestFootnote(unittest.TestCase):
             text_ref = f.read()
 
         # Run the function with the input
-        list_out = []
+        self.ft.xml = []
         self.ft.footnote = text_in
-        self.ft.correction('standard', list_out)
+        self.ft.correction('standard')
 
         # Convert the output list to a string with each element on a new line
-        text_out = '\n'.join(list_out)
+        text_out = '\n'.join(self.ft.xml)
 
         # Test the return value matches the expected output
         self.assertEqual(text_out, text_ref)
@@ -468,15 +493,16 @@ class TestFootnote(unittest.TestCase):
             text_ref = f.read()
 
         # Run the function with the input
-        list_out = []
+        self.ft.xml = []
         self.ft.footnote = text_in
-        self.ft.correction('standard', list_out)
+        self.ft.correction('standard')
 
         # Convert the output list to a string with each element on a new line
-        text_out = '\n'.join(list_out)
+        text_out = '\n'.join(self.ft.xml)
 
         # Test the return value matches the expected output
         self.assertEqual(text_out, text_ref)
+
 
 class TestFootnotes(unittest.TestCase):
 

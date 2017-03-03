@@ -41,6 +41,11 @@ class Hyppocratic(object):
         """
         pass
 
+    def note_xml(self, note):
+        """Method to create the apparatus note XML
+        """
+        self.xml.append(self.xml_oss + '<note>' + note + '</note>')
+
     def save_xml(self):
         """Method to save the XML in the working directory
         """

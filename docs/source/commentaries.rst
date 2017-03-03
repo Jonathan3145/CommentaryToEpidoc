@@ -112,6 +112,13 @@ e. ``*n*ssss ] conieci: om. W1.`` or ``*n*ssss ] correxi: om. W1, W2.``
    This means add a conjonctured text ``ssss`` which is missing in witness
    ``W1`` or missing in witness ``W1`` and ``w2``.
 
+f. More generally an omission can have the form:
+
+   ``*n*ssss ] conieci: tttt W1, W2, W3: om. W4, W5, W6.`` or
+   ``*n*ssss ] correxi: tttt W1, W2, W3: om. W4, W5, W6.`` or
+   ``*n*ssss ] W1, W2, W3: om. W4, W5, W6.``
+
+
 .. _additions:
 
 Additions
