@@ -76,8 +76,9 @@ def references(line):
         # If this partition failed then something went wrong,
         # so throw an error
         if sep == '':
-            logger.error('Unable to partition string {} at "]" '
-                         'when looking for a reference'.format(line))
+            error = 'Unable to partition string {} at "]" ' \
+                    'when looking for a reference'.format(line)
+            logger.error(error)
             raise AnalysisException
 
         # Partition the reference into witness and location (these are
@@ -141,73 +142,79 @@ def footnotes(string_to_process, next_footnote):
     # Create lists to contain the XML
     xml_main = []
 
-    while True:
-        # Use string partition to try to split this text at
-        # the next footnote symbol
-        footnote_symbol = '*' + str(next_footnote) + '*'
-        text_before_symbol, sep, string_to_process = \
-            string_to_process.partition(footnote_symbol)
+    try:
+        while True:
+            # Use string partition to try to split this text at
+            # the next footnote symbol
+            footnote_symbol = '*' + str(next_footnote) + '*'
+            text_before_symbol, sep, string_to_process = \
+                string_to_process.partition(footnote_symbol)
 
-        # If the partition failed sep will have zero length and the next
-        # footnote is not in this line, hence we can stop
-        # processing and return
-        if sep == '':
-            # Add text_before_symbol to the XML and stop processing
-            for next_line in text_before_symbol.splitlines():
-                xml_main.append(XML_OSS * XML_N_OFFSET +
-                                next_line.strip())
-            break
+            # If the partition failed sep will have zero length and the next
+            # footnote is not in this line, hence we can stop
+            # processing and return
+            if sep == '':
+                # Add text_before_symbol to the XML and stop processing
+                for next_line in text_before_symbol.splitlines():
+                    xml_main.append(XML_OSS * XML_N_OFFSET +
+                                    next_line.strip())
+                break
 
-        # We know sep has non-zero length and we are dealing with
-        # a footnote.
-        # Now use string partition to try to split text_before_symbol
-        # at a '#' character.
-        next_text_for_xml, sep, base_text = \
-            text_before_symbol.partition('#')
-
-        # If the above partition failed the footnote refers
-        # to a single word
-        if sep == '':
-            # Use rpartition to partition at the LAST space in the
-            # string before the footnote symbol
+            # We know sep has non-zero length and we are dealing with
+            # a footnote.
+            # Now use string partition to try to split text_before_symbol
+            # at a '#' character.
             next_text_for_xml, sep, base_text = \
-                text_before_symbol.rpartition(' ')
+                text_before_symbol.partition('#')
 
-        # Check we succeeded in partitioning the text before the footnote
-        # at '#' or ' '. If we didn't there's an error.
-        if sep == '':
-            error = 'Unable to partition text before footnote symbol ' \
-                    '{}'.format(footnote_symbol)
-            logger.error(error)
-            raise AnalysisException
+            # If the above partition failed the footnote refers
+            # to a single word
+            if sep == '':
+                # Use rpartition to partition at the LAST space in the
+                # string before the footnote symbol
+                next_text_for_xml, sep, base_text = \
+                    text_before_symbol.rpartition(' ')
 
-        # Add the next_text_for_xml to xml_main
-        for next_line in next_text_for_xml.splitlines():
-            xml_main.append(XML_OSS * XML_N_OFFSET + next_line.strip())
+            # Check we succeeded in partitioning the text before the footnote
+            # at '#' or ' '. If we didn't there's an error.
+            if sep == '':
+                error = 'Unable to partition text before footnote symbol ' \
+                        '{}'.format(footnote_symbol)
+                logger.error(error)
+                raise AnalysisException
 
-        # Create XML for this textural variation for xml_main
-        next_string = ('<app n="' +
-                       str(next_footnote) +
-                       '" type="footnote" xml:id="begin_fn' +
-                       str(next_footnote) +
-                       '"><rdg>' +
-                       base_text +
-                       '</rdg><anchor xml:id="end_fn' +
-                       str(next_footnote) + '"/>')
+            # Add the next_text_for_xml to xml_main
+            for next_line in next_text_for_xml.splitlines():
+                xml_main.append(XML_OSS * XML_N_OFFSET + next_line.strip())
 
-        # Add next_string to the xml_main, remember this may contain '\n'
-        # characters and XML from a witness reference
-        for next_line in next_string.splitlines():
-            xml_main.append(XML_OSS * XML_N_OFFSET + next_line)
+            # Create XML for this textural variation for xml_main
+            next_string = ('<app n="' +
+                           str(next_footnote) +
+                           '" type="footnote" xml:id="begin_fn' +
+                           str(next_footnote) +
+                           '"><rdg>' +
+                           base_text +
+                           '</rdg><anchor xml:id="end_fn' +
+                           str(next_footnote) + '"/>')
 
-        # Close the XML for the main text
-        xml_main.append(XML_OSS * XML_N_OFFSET + '</app>')
+            # Add next_string to the xml_main, remember this may contain '\n'
+            # characters and XML from a witness reference
+            for next_line in next_string.splitlines():
+                xml_main.append(XML_OSS * XML_N_OFFSET + next_line)
 
-        # Increment the footnote number
-        next_footnote += 1
+            # Close the XML for the main text
+            xml_main.append(XML_OSS * XML_N_OFFSET + '</app>')
 
-        # Test to see if there is any more text to process
-        if string_to_process == '':
-            break
+            # Increment the footnote number
+            next_footnote += 1
+
+            # Test to see if there is any more text to process
+            if string_to_process == '':
+                break
+    except AttributeError:
+        error = 'Cannot analyse aphorysm or commentary ' \
+                '{}'.format(string_to_process)
+        logger.error(error)
+        raise AnalysisException
 
     return xml_main, next_footnote

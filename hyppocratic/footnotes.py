@@ -11,7 +11,6 @@ Disable two warning which I cannot avoid and are not really problematic::
 Authors: Jonathan Boyle, Nicolas Gruel
 Copyright: IT Services, The University of Manchester
 """
-import sys
 import re
 import logging.config
 from collections import OrderedDict
@@ -46,11 +45,13 @@ class Footnote(Hyppocratic):
     self.n_footnote: int
         Integer which give the reference number of the footnote treated.
     """
-    def __init__(self, footnote=None, n_footnote=None, xml=[]):
+    def __init__(self, footnote=None, n_footnote=None, xml=None):
         Hyppocratic.__init__(self)
         self.footnote = footnote
         self.footnote_com = ''
         self.n_footnote = n_footnote
+        if xml is None:
+            xml = []
         self.xml = xml
 
         self.d_footnote = {}
@@ -123,11 +124,6 @@ class Footnote(Hyppocratic):
             text = _tmp[0].strip()
 
             # Split around : to check if correxi or conieci
-
-            #_tmp = ['', 'correxi: tttt ssss W1, W2, W3: om. W4,W5']
-            #_tmp = ['', 'correxi: W1, W2, W3: om. W4,W5']
-            #_tmp = ['', 'correxi: om. W4,W5']
-
             _tmp = _tmp[1].strip().split(':')
             if _tmp[0] in ['correxi', 'conieci']:
                 reason = _tmp[0].strip()
@@ -180,7 +176,7 @@ class Footnote(Hyppocratic):
             self.xml.append(self.xml_oss + '<rdg>')
             self.xml.append(self.xml_oss * 2 + '<choice>')
             self.xml.append(self.xml_oss * 3 + '<corr type="conjecture">' +
-                           self.d_footnote['text'] + '</corr>')
+                            self.d_footnote['text'] + '</corr>')
             self.xml.append(self.xml_oss * 2 + '</choice>')
             self.xml.append(self.xml_oss + '</rdg>')
         elif self.d_footnote['reason'] is not None:
@@ -189,7 +185,7 @@ class Footnote(Hyppocratic):
         wits1, wits2 = self.d_footnote['witnesses']
         if wits1 is not None:
             for w in wits1:
-                _str = self.xml_oss + '<rdg wit="#' + w + '">'
+                _str = self.xml_oss + '<rdg wit="#' + w.strip() + '">'
                 if self.d_footnote['corrections']:
                     _str += self.d_footnote['corrections'] + '</rdg>'
                 else:
@@ -294,7 +290,7 @@ class Footnote(Hyppocratic):
                 if len(wit) != 0:
                     for w in wit:
                         self.xml.append(self.xml_oss + '<rdg wit="#' +
-                                       w.strip() + '">')
+                                        w.strip() + '">')
                         self.xml.append(self.xml_oss * 2 +
                                         '<add reason="add_scribe">' +
                                         self.d_footnote['corrections'][i] +

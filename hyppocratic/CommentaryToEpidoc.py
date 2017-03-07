@@ -45,7 +45,7 @@ except ImportError:
     from analysis import references, footnotes, AnalysisException
     from introduction import Introduction
     from title import Title
-    from footnotes import Footnotes
+    from footnotes import Footnotes, FootnotesException
     from conf import LOGGING
     from baseclass import Hyppocratic
 
@@ -266,18 +266,14 @@ class Process(Hyppocratic):
         else:
             logger.info('There are no introduction present.')
 
-        title_sep = '1.\n'
+        try:
+            p = re.compile(r'\s+1\.?\n')
+            self.title, self.text = p.split(self.text)
+            self.text = '1.\n' + self.text
+        except ValueError as e:
+            raise CommentaryToEpidocException(e)
 
-        loc_title = self.text.find(title_sep)
-
-        if loc_title != -1:
-            self.title = self.text[:loc_title].strip()
-            self.text = self.text[loc_title:].strip()
-        else:
-            logger.error('Numeration of the aphorism should start with 1.')
-            raise CommentaryToEpidocException
-
-#     def analysis_aphorism_dict(self, com):
+    #     def analysis_aphorism_dict(self, com):
 #         """Create an ordered dictionary with the different witness and
 #          footnotes present in a commentary
 #
@@ -285,7 +281,6 @@ class Process(Hyppocratic):
 #         -------
 #
 #         """
-#         # TODO: WIP
 #         # Find all the witnesses in the line
 #         # Note on the regex:
 #         #     \w = [a-AA-Z0-9_]
@@ -311,10 +306,9 @@ class Process(Hyppocratic):
         """Create an order dictionary (OrderedDict object) with the aphorisms
         and commentaries.
         """
-        # TODO: optimise there are two times the same regex
 
         # \n\d+.\n == \n[0-9]+.\n (\d == [0-9])
-        aphorism = re.split(r'\s+[0-9]+.\n', '\n' + self.text)[1:]
+        aphorism = re.split(r'\s+[0-9]+\.?\n', '\n' + self.text)[1:]
 
         # n_aphorism = [int(i.strip('\n').strip('.')) for i in
         #               re.findall('\n[0-9]+.\n', '\n' + self.text)]
@@ -328,7 +322,7 @@ class Process(Hyppocratic):
         #    which start with end of line or any space characer
         #    with at least on number ending
         #    with a point and a end of line.
-        p = re.compile(r'\s+[0-9]+.\n')
+        p = re.compile(r'\s+[0-9]+.?\n')
         try:
             n_aphorism = [
                 int(i.group().strip('.\t\n '))
@@ -337,7 +331,7 @@ class Process(Hyppocratic):
                 raise CommentaryToEpidocException
         except (ValueError, CommentaryToEpidocException):
             error = ("aphorism format does not respect the convention. "
-                    "It should be a number following by a point")
+                     "It should be a number following by a point")
             logger.error(error)
             debug = "we got:\n{}".format(self.text.splitlines()[:2])
             logger.debug(debug)
@@ -502,7 +496,6 @@ class Process(Hyppocratic):
         if self.introduction != '':
             intro = Introduction(self.introduction, self.next_footnote)
             intro.xml_main()
-            # TODO: set properly the next_footnote. Should be modified
             self.next_footnote = intro.next_footnote
             self.xml += intro.xml
             logger.debug('Introduction treated')
@@ -518,7 +511,6 @@ class Process(Hyppocratic):
         title.xml_main()
         logger.debug('Title xml created')
 
-        # TODO: set properly the next_footnote. Should be modified
         self.next_footnote = title.next_footnote
 
         # Add title to the xml main
@@ -686,7 +678,8 @@ class Process(Hyppocratic):
                     self.fname = fname
                     self.setbasename()
                     self.process_file()
-                except (CommentaryToEpidocException, Exception):
+                except (CommentaryToEpidocException, FootnotesException,
+                        AnalysisException):
                     error = 'Error: unable to process "{}", ' \
                             'see log file.'.format(self.fname)
                     logger.error(error)
