@@ -76,7 +76,7 @@ where:
 -  ``file`` is the name of the individual file to analyse and convert to
    XML.
 
-At the end of the treatment a log file called *hyppocratic.log* will be
+At the end of the treatment a log file called *hippocratic.log* will be
 found in the directory of the execution. It will contains information,
 errors and warning related to the process.
 

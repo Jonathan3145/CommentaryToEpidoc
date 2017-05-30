@@ -1,11 +1,31 @@
 matrix:
   include:
     - os: linux
+      dist: trusty
+      sudo: required
+      language: python
+      python: 3.2
+      env: TOXENV=py35
+    - os: linux
+      dist: trusty
+      sudo: required
+      language: python
+      python: 3.3
+      env: TOXENV=py35
+    - os: linux
+      dist: trusty
+      sudo: required
+      language: python
+      python: 3.4
+      env: TOXENV=py35
+    - os: linux
+      dist: trusty
       sudo: required
       language: python
       python: 3.5
       env: TOXENV=py35
     - os: linux
+      dist: trusty
       sudo: required
       language: python
       python: 3.6
@@ -48,7 +68,19 @@ install:
 
 # command to run tests
 script:
-        - pytest
-        # Command to build documentation
-        - cd docs
-        - make html
+    - pytest
+    - if [  "$TRAVIS_OS_NAME" != "osx" ]; then
+        sudo apt-get update -qy;
+        sudo apt-get install graphviz inkscape;
+        sudo apt-get install texlive-latex-base;
+        sudo apt-get install texlive-fonts-recommended;
+        sudo apt-get install texlibe-fonts-extra;
+        sudo apt-get install texlive-latex-extra;
+        wget http://sourceforge.net/projects/plantuml/files/plantuml.jar/download;
+        mkdir docs/utils;
+        mv download docs/utils/plantuml.jar;
+        make uml;
+        cd docs;
+        make html;
+        make latexpdf;
+     fi

@@ -1,20 +1,32 @@
 #########################
-Hyppocratic aphorisms XML
+Hippocratic aphorisms XML
 #########################
 
 .. sidebar:: Summary
 
-    :Name: **Hyppocratic Aphorisms software**
+    :Name: **Hippocratic Aphorisms software**
     :Release: |release|
     :version: |version|
     :Date: |today|
     :Authors: **Nicolas Gruel**, Jonathan Boyle
-    :Target: Hyppocratic aphorisms research
+    :Target: Hippocratic aphorisms research
     :status: draft
 
-.. topic:: Aphorisms
+########
+Overview
+########
 
-    * Hyppocratic aphorisms research
+A Python module called AphorismToXML has been written by Jonathan
+Boyle and Nicolas Gruel (University of Manchester) to convert transcribed
+commentaries to `TEI <http://www.tei-c.org/index.xml>`_ compatible XML.
+
+The work was funded from an ERC funded project studying Arabic
+commentaries on the Hippocratic Aphorisms, the Principal Investigator
+was Peter E. Pormann (The University of Manchester).
+
+##################
+Tables of Contents
+##################
 
 
 .. toctree::
@@ -26,12 +38,21 @@ Hyppocratic aphorisms XML
    source/acronyms
    source/introduction
    source/installation
+   source/howto
    source/commentaries
-   source/aphorismstotei
    source/xml_files
-   source/hyppocratic
+   source/develop
+   source/uml
+   source/hippocratic
 ..   source/code
-   
+
+
+.. topic:: Keywords
+
+    * Humanities
+    * Hippocratic aphorisms research
+    * Python
+    * XML
 
 Indices and tables
 ==================

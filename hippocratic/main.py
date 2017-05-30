@@ -15,15 +15,11 @@ except ImportError:
     sys.exit()
 
 try:
-    from .conf import logger
-    from .aphorisms_to_xml import Process, AphorismsToXMLException
-    from .analysis import AnalysisException
-    from .footnotes import FootnotesException
+    from .__init__ import __version__
+    from .aphorisms_to_xml import logger, Process, AphorismsToXMLException
 except ImportError:
-    from conf import logger
-    from aphorisms_to_xml import Process, AphorismsToXMLException
-    from analysis import AnalysisException
-    from footnotes import FootnotesException
+    from __init__ import __version__
+    from aphorisms_to_xml import logger, Process, AphorismsToXMLException
 
 
 def main(args=None):
@@ -32,17 +28,22 @@ def main(args=None):
     Command line::
 
         Usage:
-            AphorismsToXML <files> [--xml-template=<tmpl>]
+            AphorismsToXML <files> [--xml-template=<tmpl>] [--relaxng=<relax>]
             AphorismsToXML -h | --help
             AphorismsToXML --version
 
         Options:
-            -h --help              Show this screen.
-            --version              Show version.
-            --xml-template=<name>  Name of the XML template
+            -h --help                   Show this screen.
+            --version                   Show version.
+            --xml-template=<name>       Name of the XML template
+            --relaxng=<name>            Name of the Relaxng file use to validate the resulting XML
 
-        Example:
+        Examples:
             AphorismsToXML TextFiles
+            AphorismsToXML Textfiles --xml-template=template.xml
+            AphorismsToXML Textfiles --relaxng=tei.rng
+            AphorismsToXML Textfiles --xml-template=template.xml --relaxng=tei.rng
+            
 
     Raises
     ------
@@ -51,12 +52,13 @@ def main(args=None):
     """
 
     arguments = docopt(main.__doc__, argv=args,
-                       version="AphorismToXML version 2.0")
+                       version=__version__)
 
     # Convert docopt results in the proper variable (change type when needed)
 
     fname = arguments['<files>']
     template_file = arguments['--xml-template']
+    relaxng_file = arguments['--relaxng']
 
     try:
         if os.path.isdir(fname):
@@ -75,9 +77,10 @@ def main(args=None):
             comtoepi = Process(fname=fname, folder=directory)
             if template_file:
                 comtoepi.template_fname = template_file
+            if relaxng_file:
+                comtoepi.relaxng_fname = relaxng_file
             comtoepi.main()
-        except (AphorismsToXMLException, FootnotesException,
-                AnalysisException):
+        except AphorismsToXMLException:
             error = 'Error: unable to process "{}", ' \
                     'see log file.'.format(fname)
             logger.error(error)

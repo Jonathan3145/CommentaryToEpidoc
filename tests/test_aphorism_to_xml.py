@@ -10,7 +10,7 @@ sys.path.append(path)
 
 path_testdata = os.path.join(path, 'test_files') + os.sep
 # examples = os.path.join(path, '..', 'Examples', 'TextFiles') + os.sep
-template_file = os.path.join(path, '..', 'hyppocratic', 'template',
+template_file = os.path.join(path, '..', 'hippocratic', 'template',
                              'xml_template.txt')
 
 
@@ -55,7 +55,7 @@ class TestProcess(unittest.TestCase):
         self.assertEqual(self.comtoepi._title, title)
         for i, line in enumerate(self.comtoepi._text.splitlines()):
             self.assertEqual(line.strip(), text[i].strip())
-        for i, line in enumerate(self.comtoepi._footnotes.splitlines()):
+        for i, line in enumerate(self.comtoepi.footnotes.splitlines()):
             self.assertEqual(line.strip(), footnotes[i].strip())
 
     def test_divide_document_no_intro(self):
@@ -86,7 +86,7 @@ class TestProcess(unittest.TestCase):
         self.assertEqual(self.comtoepi._title, title)
         for i, line in enumerate(self.comtoepi._text.splitlines()):
             self.assertEqual(line.strip(), text[i].strip())
-        for i, line in enumerate(self.comtoepi._footnotes.splitlines()):
+        for i, line in enumerate(self.comtoepi.footnotes.splitlines()):
             self.assertEqual(line.strip(), footnotes[i].strip())
 
     def test_divide_document_no_footnotes(self):
@@ -110,64 +110,13 @@ class TestProcess(unittest.TestCase):
         #     self.comtoepi.read_template()
         # self.assertEqual(cm.exception.code, 1)
 
-    def test_read_template(self):
-        # Read the template comparison manually
-        with open(path_testdata + 'xml_template.txt', 'r') as f:
-            template = f.read()
-        # split it as in the method
-        part1, sep, part2 = template.partition(self.comtoepi.template_marker)
-
-        self.comtoepi.read_template()
-        self.assertEqual(part1, self.comtoepi._template_part1)
-        self.assertEqual(part2, self.comtoepi._template_part2)
-
-    def test_read_template_badsep(self):
-        self.comtoepi.template_marker = 'xxxx'
-        self.assertRaises(AphorismsToXMLException,
-                          self.comtoepi.read_template)
-
     # #################### save_xml #########################
-
-    def test_save_xml_read_template(self):
-        """Test coverage
-        """
-        with open(path_testdata + 'xml_template.txt', 'r') as f:
-            template = f.read()
-        # split it as in the method
-        part1, sep, part2 = template.partition(self.comtoepi.template_marker)
-
-        self.comtoepi._template_part1 = ''
-        self.comtoepi.save_xml()
-        # Verify that template is read correctly
-        self.assertEqual(part1, self.comtoepi._template_part1)
-        self.assertEqual(part2, self.comtoepi._template_part2)
-
-    def test_save_xml(self):
-        self.comtoepi.xml = [self.comtoepi.template_marker]
-        with open(path_testdata + 'xml_template.txt', 'r') as f:
-            template = f.read()
-
-        # split it as in the method
-        part1, sep, part2 = template.partition(
-                self.comtoepi.template_marker)
-        # Need to add a line to pass the test. In term of XML does not matter
-        template = part1 + sep + '\n' + part2
-
-        self.comtoepi.xml_main_file = 'test_save_xml.txt'
-        self.comtoepi.save_xml()
-
-        with open(self.comtoepi.xml_main_file, 'r') as f:
-            test = f.read()
-
-        self.assertEqual(template, test)
-        os.remove(self.comtoepi.xml_main_file)
-
     def test_treat_footnote(self):
-        self.comtoepi._footnotes = ['*1*ssss tttt ] conieci: '
+        self.comtoepi.footnotes = ['*1*ssss tttt ] conieci: '
                                     'aaaa bbbb L5: om. Y']
         self.comtoepi.treat_footnotes()
-        self.assertIsNotNone(self.comtoepi._footnotes_app.footnotes)
-        self.assertIsNotNone(self.comtoepi._footnotes_app._xml_app)
+        self.assertIsNotNone(self.comtoepi.footnotes_app.footnotes)
+        self.assertIsNotNone(self.comtoepi.footnotes_app.xml)
 
     def test_main_open_document(self):
         self.comtoepi.fname = path_testdata + 'aphorisms.txt'

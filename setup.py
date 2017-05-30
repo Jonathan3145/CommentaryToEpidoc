@@ -8,8 +8,12 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
+package_data = os.path.join('template', '*')
+
+
 requirements = [
         'docopt',
+        'lxml'
         ]
 
 test_requirements = [
@@ -17,12 +21,12 @@ test_requirements = [
         'testfixtures',
         ]
 
-setup(name='hyppocratic',
-      packages=['hyppocratic'],
-      version='0.2',
-      description=('Software to convert hyppocratic text files '
+setup(name='hippocratic',
+      packages=['hippocratic'],
+      version='0.5.0',
+      description=('Software to convert hippocratic text files '
                    'to in XML files.'),
-      long_description='',
+      long_description=readme,
       author='Nicolas Gruel, Jonathan Boyle',
       author_email='nicolas.gruel@manchester.ac.uk',
       url='https://github.com/UoMResearchIT/CommentaryToEpidoc',
@@ -50,12 +54,13 @@ setup(name='hyppocratic',
           'doc': ['sphinx', 'numpydoc']},
       entry_points={
           'console_scripts': [
-              'AphorismsToXML = hyppocratic.main:main']
+              'AphorismsToXML = hippocratic.main:main']
                     },
       package_data={
-          '' : ['LICENSE'],
-          'hyppocratic': [os.path.join('template', 'xml_template.txt')],
-                    },
+          '': ['LICENSE'],
+          #'hippocratic': [os.path.join('template', 'xml_main_template.xml')],
+          'hippocratic': [package_data],
+      },
       include_package_data=True,
       license='MIT',
       plateforms='any'

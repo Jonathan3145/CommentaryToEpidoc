@@ -6,19 +6,21 @@
 """
 # pylint: disable=locally-disabled, invalid-name
 try:
-    from .conf import XML_OSS, XML_N_OFFSET, XML_OFFSET_SIZE
+    from .conf import (logger, XML_OSS, XML_N_OFFSET, XML_OFFSET_SIZE,
+                       TEMPLATE_FNAME, RELAXNG_FNAME)
 except ImportError:
-    from conf import XML_OSS, XML_N_OFFSET, XML_OFFSET_SIZE
+    from conf import (logger, XML_OSS, XML_N_OFFSET, XML_OFFSET_SIZE,
+                      TEMPLATE_FNAME, RELAXNG_FNAME)
 
 
 # Define an Exception
-class HyppocraticException(Exception):
+class HippocraticException(Exception):
     """Class for exception
     """
     pass
 
 
-class Hyppocratic(object):
+class Hippocratic(object):
     """Basic class used for the software.
 
     Attributes
@@ -61,10 +63,17 @@ class Hyppocratic(object):
         """
         self.xml.append(self.xml_oss + '<note>' + note + '</note>')
 
-    def save_xml(self):
+    def save_xml(self, fname=None, xml=None):
         """Method to save the XML in the working directory
         """
-        fname = self.__class__.__name__ + '.xml'
+        if fname is None:
+            fname = self.__class__.__name__ + '.xml'
+
+        if xml is None:
+            if self.xml is list:
+                xml = '\n'.join(self.xml)
+            else:
+                xml = self.xml
+
         with open(fname, 'w', encoding="utf-8") as f:
-            for s in self.xml:
-                f.write(s + '\n')
+            f.write(xml)

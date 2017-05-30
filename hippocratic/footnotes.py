@@ -9,11 +9,9 @@ import re
 from collections import OrderedDict
 
 try:
-    from .conf import logger
-    from .baseclass import Hyppocratic
+    from .baseclass import Hippocratic, logger
 except ImportError:
-    from conf import logger
-    from baseclass import Hyppocratic
+    from baseclass import Hippocratic, logger
 
 
 # Define an Exception
@@ -23,7 +21,7 @@ class FootnotesException(Exception):
     pass
 
 
-class Footnote(Hyppocratic):
+class Footnote(Hippocratic):
     """Class Footnote which treat an individual footnote
 
     Attributes
@@ -38,12 +36,13 @@ class Footnote(Hyppocratic):
         list which contains the app XML file.
     """
     def __init__(self, footnote=None, n_footnote=None, xml=None):
-        Hyppocratic.__init__(self)
+        Hippocratic.__init__(self)
         self.footnote = footnote
         self.n_footnote = n_footnote
         if xml is None:
             xml = []
         self.xml = xml
+        self.wits = []
 
         self._d_footnote = {}
 
@@ -81,8 +80,6 @@ class Footnote(Hyppocratic):
         2. ``*n*`` (where n is the footnote number) from the start of
            the string
         3. ``.`` character from the end of the string
-
-        TODO: update that dosctring this is wrong
 
         The footnote is expected to contain a single ':' character and have the
         following format:
@@ -172,6 +169,7 @@ class Footnote(Hyppocratic):
         if wits1 is not None:
             for w in wits1:
                 _str = self.xml_oss + '<rdg wit="#' + w.strip() + '">'
+                self.wits.append(w)
                 if self._d_footnote['corrections']:
                     _str += self._d_footnote['corrections'] + '</rdg>'
                 else:
@@ -181,6 +179,7 @@ class Footnote(Hyppocratic):
 
         for w in wits2:
             _str = self.xml_oss + '<rdg wit="#' + w + '">'
+            self.wits.append(w)
             _str += '\n' + self.xml_oss * 2 + '<gap reason="omission"/>'
             _str += '\n' + self.xml_oss + '</rdg>'
             self.xml.append(_str)
@@ -253,7 +252,6 @@ class Footnote(Hyppocratic):
                                 'text': text,
                                 'witnesses': [wits1, wits2],
                                 'corrections': [corr1, corr2]}
-
             if self._d_footnote['reason'] == 'standard':
                 self._d_footnote['corrections'][0] = self._d_footnote['text']
             self._correction_xml()
@@ -279,9 +277,10 @@ class Footnote(Hyppocratic):
                         self.xml.append(self.xml_oss + '<rdg wit="#' +
                                         w.strip() + '">')
                         self.xml.append(self.xml_oss * 2 +
-                                        '<add reason="add_scribe">' +
+                                        '<add>' +
                                         self._d_footnote['corrections'][i] +
                                         '</add>')
+                        self.note_xml('reason="add_scribe"')
                         self.xml.append(self.xml_oss + '</rdg>')
             return
 
@@ -305,6 +304,7 @@ class Footnote(Hyppocratic):
 
         for i in range(len(self._d_footnote['witnesses'])):
             for w in self._d_footnote['witnesses'][i]:
+                self.wits.append(w)
                 self.xml.append(self.xml_oss +
                                 '<rdg wit="#' + w.strip() + '">' +
                                 self._d_footnote['corrections'][i] + '</rdg>')
@@ -317,7 +317,7 @@ class Footnotes(object):
     Attributes
     ----------
     footnotes : list, str, OrderedDict, dict
-        List which contains the whole set of footnote from the hyppocratic
+        List which contains the whole set of footnote from the hippocratic
         file.
     """
 
@@ -327,7 +327,8 @@ class Footnotes(object):
             self._dictionary()
         elif isinstance(footnotes, (dict, OrderedDict)):
             self.footnotes = footnotes
-        self._xml_app = []
+        self.xml = []
+        self.wits = []
 
     def _dictionary(self):
         """Create an ordered dictionary (OrderedDict object) with the footnotes
@@ -417,7 +418,7 @@ class Footnotes(object):
 
             # Add initial XML to xml_app (for the apparatus XML file)
 
-            self._xml_app.append('<app from="#begin_fn' + str(n_footnote) +
+            self.xml.append('<app from="#begin_fn' + str(n_footnote) +
                                  '" to="#end_fn' + str(n_footnote) + '">')
 
             ft.check_endnote()
@@ -443,10 +444,11 @@ class Footnotes(object):
             else:
                 ft.correction('standard')
 
-            self._xml_app += ft.xml
+            self.xml += ft.xml
+            self.wits += ft.wits
 
             # Close the XML
-            self._xml_app.append('</app>')
+            self.xml.append('</app>')
 
     def save_xml(self, fname='xml_app.xml'):
         """Method to save the XML app string in a file
@@ -457,5 +459,5 @@ class Footnotes(object):
             name of the file where the XML app will be saved.
         """
         with open(fname, 'w', encoding="utf-8") as f:
-            for s in self._xml_app:
+            for s in self.xml:
                 f.write(s + '\n')

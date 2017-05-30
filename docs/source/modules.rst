@@ -1,7 +1,7 @@
-hyppocratic
+hippocratic
 ===========
 
 .. toctree::
    :maxdepth: 4
 
-   hyppocratic
+   hippocratic

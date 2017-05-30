@@ -10,9 +10,9 @@ The ``references`` function has to be used before the ``footnotes``.
 :Copyright: IT Services, The University of Manchester
 """
 try:
-    from .conf import logger, XML_OSS, XML_N_OFFSET
+    from .baseclass import logger, XML_OSS, XML_N_OFFSET
 except ImportError:
-    from conf import logger, XML_OSS, XML_N_OFFSET
+    from baseclass import logger, XML_OSS, XML_N_OFFSET
 
 
 # Define an Exception
@@ -204,23 +204,20 @@ def footnotes(string_to_process, next_footnote):
             for next_line in next_text_for_xml.splitlines():
                 xml_main.append(XML_OSS * XML_N_OFFSET + next_line.strip())
 
+            # Create an anchor for the app (as advised)
+            xml_main.append(XML_OSS * XML_N_OFFSET +
+                            '<anchor xml:id="begin_fn' +
+                            str(next_footnote) + '"/>')
+
             # Create XML for this textural variation for xml_main
-            next_string = ('<app n="' +
-                           str(next_footnote) +
-                           '" type="footnote" xml:id="begin_fn' +
-                           str(next_footnote) +
-                           '"><rdg>' +
-                           base_text +
-                           '</rdg><anchor xml:id="end_fn' +
-                           str(next_footnote) + '"/>')
+            # Add next_string to the xml_main and XML from a witness reference
+            for next_line in base_text.splitlines():
+                xml_main.append(XML_OSS * (XML_N_OFFSET+2) + next_line)
 
-            # Add next_string to the xml_main, remember this may contain '\n'
-            # characters and XML from a witness reference
-            for next_line in next_string.splitlines():
-                xml_main.append(XML_OSS * XML_N_OFFSET + next_line)
-
-            # Close the XML for the main text
-            xml_main.append(XML_OSS * XML_N_OFFSET + '</app>')
+            # End the anchor reference
+            xml_main.append(XML_OSS * XML_N_OFFSET +
+                            '<anchor xml:id="end_fn' +
+                            str(next_footnote) + '"/>')
 
             # Increment the footnote number
             next_footnote += 1

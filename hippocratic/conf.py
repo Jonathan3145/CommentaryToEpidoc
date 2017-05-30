@@ -1,4 +1,4 @@
-"""Module to contains the configuration of the hyppocratic software
+"""Module to contains the configuration of the hippocratic software
 
 :Authors: Nicolas Gruel <nicolas.gruel@manchester.ac.uk>
 
@@ -26,7 +26,7 @@ LOGGING = {
             'class': 'logging.FileHandler',
             'level': 'DEBUG',
             'formatter': 'default',
-            'filename': 'hyppocratic.log',
+            'filename': 'hippocratic.log',
             'mode': 'w',
             'encoding': 'utf-8',
         },
@@ -45,7 +45,7 @@ LOGGING = {
 
 # Read logging configuration and create logger
 logging.config.dictConfig(LOGGING)
-logger = logging.getLogger('hyppocratic')
+logger = logging.getLogger('hippocratic')
 
 # Some constants use in the creation of the XML
 XML_N_OFFSET = 3
@@ -54,18 +54,33 @@ XML_OSS = ' ' * XML_OFFSET_SIZE
 
 # XML template information
 try:
-    TEMPLATE_FNAME = pkg_resources.resource_filename('hyppocratic',
+    TEMPLATE_FNAME = pkg_resources.resource_filename('hippocratic',
                                                      os.path.join(
                                                          'template',
-                                                         'xml_template.txt'))
+                                                         'xml_template.xml'))
 except (ModuleNotFoundError, KeyError):
-    TEMPLATE_FNAME = 'xml_template.txt'
+    TEMPLATE_FNAME = os.path.join('template', 'xml_template.xml')
 
 try:
     os.path.isfile(TEMPLATE_FNAME)
 except FileNotFoundError:
     error = "Please provide the xml template to use " \
-            "(option --xml-template=<file name>)"
+            "(option --xml--template=<file name>)"
     sys.exit()
 
-TEMPLATE_MARKER = '#INSERT#'
+# Relaxng
+try:
+    RELAXNG_FNAME = pkg_resources.resource_filename('hippocratic',
+                                                     os.path.join(
+                                                         'template',
+                                                         'tei_all.rng'))
+except (ModuleNotFoundError, KeyError):
+    RELAXNG_FNAME = os.path.join('template', 'tei_all.rng')
+
+try:
+    os.path.isfile(RELAXNG_FNAME)
+except FileNotFoundError:
+    error = "Please provide the Relaxng file to use " \
+            "(option --relaxng=<file name>)"
+    sys.exit()
+

@@ -10,7 +10,7 @@ sys.path.append(path)
 
 path_testdata = os.path.join(path, 'test_files') + os.sep
 # examples = os.path.join(path, '..', 'Examples', 'TextFiles') + os.sep
-template_file = os.path.join(path, '..', 'hyppocratic', 'template',
+template_file = os.path.join(path, '..', 'hippocratic', 'template',
                              'xml_template.txt')
 
 

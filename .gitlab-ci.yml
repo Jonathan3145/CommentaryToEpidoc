@@ -2,8 +2,15 @@ test:
   image: python:latest
   script:
   - apt-get update -qy
-  - apt-get install -y python-dev python-pip python-sphinx
+  - apt-get install -y python-dev python-pip python-sphinx graphviz inkscape
+  - apt-get install -y texlive-latex-base
+  - apt-get install -y texlive-fonts-recommended
+  - apt-get install -y texlive-fonts-extra
+  - apt-get install -y texlive-latex-extra
   - pip install -r requirements_dev.txt
+  - wget http://sourceforge.net/projects/plantuml/files/plantuml.jar/download
+  - mkdir docs/utils
+  - mv download docs/utils/plantuml.jar
   - pytest
-  - cd docs
-  - make html
+  - make uml
+  - make docs

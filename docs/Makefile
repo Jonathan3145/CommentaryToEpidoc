@@ -1,6 +1,25 @@
 # Makefile for Sphinx documentation
 #
 
+# Convert svg to pdf for latex creation
+SOURCEDIR     = source
+#IMAGEDIRS can be a list of directories that contain SVG files and are relative to the SOURCEDIR
+IMAGEDIRS      = ../images
+
+# SVG to PDF conversion
+SVG2PDF       = inkscape
+SVG2PDF_FLAGS =
+
+# Pattern rule for converting SVG to PDF
+%.pdf : %.svg
+	$(SVG2PDF) -f $< -A $@
+
+# Build a list of SVG files to convert to PDFs
+PDFs := $(foreach dir, $(IMAGEDIRS), $(patsubst %.svg,%.pdf,$(wildcard $(SOURCEDIR)/$(dir)/*.svg)))
+
+# Make a rule to build the PDFs
+images: $(PDFs)
+
 # You can set these variables from the command line.
 SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
@@ -91,14 +110,14 @@ epub:
 	@echo
 	@echo "Build finished. The epub file is in $(BUILDDIR)/epub."
 
-latex:
+latex: $(PDFs)
 	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(BUILDDIR)/latex
 	@echo
 	@echo "Build finished; the LaTeX files are in $(BUILDDIR)/latex."
 	@echo "Run \`make all-pdf' or \`make all-ps' in that directory to" \
 	      "run these through (pdf)latex."
 
-latexpdf:
+latexpdf: $(PDFs)
 	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(BUILDDIR)/latex
 	@echo "Running LaTeX files through pdflatex..."
 	make -C $(BUILDDIR)/latex all-pdf
@@ -134,3 +153,7 @@ doctest:
 	$(SPHINXBUILD) -b doctest $(ALLSPHINXOPTS) $(BUILDDIR)/doctest
 	@echo "Testing of doctests in the sources finished, look at the " \
 	      "results in $(BUILDDIR)/doctest/output.txt."
+
+clean:
+	-rm -rf $(BUILDDIR)/*
+	-rm $(PDFs)

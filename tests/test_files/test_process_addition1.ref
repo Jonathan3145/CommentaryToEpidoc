@@ -1,3 +1,4 @@
     <rdg wit="#WW1">
-        <add reason="add_scribe">dddd eeee ffff</add>
+        <add>dddd eeee ffff</add>
+    <note>reason="add_scribe"</note>
     </rdg>

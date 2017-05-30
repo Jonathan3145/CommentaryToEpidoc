@@ -4,9 +4,6 @@
 XML files
 #########
 
-Base file nam
--------------
-
 The Python module generates TEI XML for insertion within the ``<body>``
 element. Therefore the Python module requires a suitable XML template
 file as input which contains all XML other than the contents of the

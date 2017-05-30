@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>Python</ID>
+  <OriginalElement>#/home/gruel/PycharmProjects/AphorismToTEI/hippocratic</OriginalElement>
+  <nodes>
+    <node x="0.0" y="1584.0">hippocratic.footnotes.FootnotesException</node>
+    <node x="899.4531249999999" y="1197.5">Exception</node>
+    <node x="1408.453125" y="900.0">hippocratic.aphorisms_to_xml.Process</node>
+    <node x="2123.5" y="146.0">object</node>
+    <node x="309.0" y="1584.0">hippocratic.baseclass.HippocraticException</node>
+    <node x="1253.0" y="1584.0">hippocratic.title.TitleException</node>
+    <node x="2534.453125" y="1087.0">hippocratic.footnotes.Footnote</node>
+    <node x="3164.453125" y="1142.0">hippocratic.title.Title</node>
+    <node x="2278.0" y="0.0">_collections_abc.Hashable</node>
+    <node x="2233.5" y="644.0">hippocratic.baseclass.Hippocratic</node>
+    <node x="789.4531249999999" y="666.0">BaseException</node>
+    <node x="625.0" y="1584.0">hippocratic.analysis.AnalysisException</node>
+    <node x="1492.0" y="1584.0">hippocratic.aphorisms_to_xml.AphorismsToXMLException</node>
+    <node x="915.0" y="1584.0">hippocratic.introduction.IntroductionException</node>
+    <node x="1010.4531249999999" y="1153.0">hippocratic.introduction.Introduction</node>
+    <node x="2531.5" y="666.0">hippocratic.footnotes.Footnotes</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="object" target="_collections_abc.Hashable">
+      <point x="0.0" y="-224.0" />
+      <point x="0.0" y="48.0" />
+    </edge>
+    <edge source="Exception" target="BaseException">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="81.0" />
+    </edge>
+    <edge source="hippocratic.title.Title" target="hippocratic.baseclass.Hippocratic">
+      <point x="0.0" y="-70.0" />
+      <point x="3387.453125" y="870.0" />
+      <point x="2476.75" y="870.0" />
+      <point x="104.25" y="103.0" />
+    </edge>
+    <edge source="hippocratic.aphorisms_to_xml.Process" target="hippocratic.baseclass.Hippocratic">
+      <point x="0.0" y="-312.0" />
+      <point x="1961.453125" y="880.0" />
+      <point x="2337.75" y="880.0" />
+      <point x="-34.75" y="103.0" />
+    </edge>
+    <edge source="hippocratic.aphorisms_to_xml.AphorismsToXMLException" target="Exception">
+      <point x="0.0" y="-14.5" />
+      <point x="1687.0" y="1544.0" />
+      <point x="982.8697916666665" y="1544.0" />
+      <point x="37.91666666666663" y="14.5" />
+    </edge>
+    <edge source="hippocratic.analysis.AnalysisException" target="Exception">
+      <point x="0.0" y="-14.5" />
+      <point x="760.0" y="1564.0" />
+      <point x="937.3697916666665" y="1564.0" />
+      <point x="-7.583333333333371" y="14.5" />
+    </edge>
+    <edge source="hippocratic.introduction.Introduction" target="hippocratic.baseclass.Hippocratic">
+      <point x="0.0" y="-59.0" />
+      <point x="1199.453125" y="870.0" />
+      <point x="2268.25" y="870.0" />
+      <point x="-104.25" y="103.0" />
+    </edge>
+    <edge source="hippocratic.baseclass.Hippocratic" target="object">
+      <point x="0.0" y="-103.0" />
+      <point x="0.0" y="224.0" />
+    </edge>
+    <edge source="hippocratic.footnotes.Footnote" target="hippocratic.baseclass.Hippocratic">
+      <point x="0.0" y="-125.0" />
+      <point x="2839.453125" y="880.0" />
+      <point x="2407.25" y="880.0" />
+      <point x="34.75" y="103.0" />
+    </edge>
+    <edge source="BaseException" target="object">
+      <point x="1.1368683772161603E-13" y="-81.0" />
+      <point x="944.953125" y="619.0" />
+      <point x="2206.5" y="619.0" />
+      <point x="-166.0" y="224.0" />
+    </edge>
+    <edge source="hippocratic.footnotes.Footnotes" target="object">
+      <point x="0.0" y="-81.0" />
+      <point x="2704.5" y="619.0" />
+      <point x="2538.5" y="619.0" />
+      <point x="166.0" y="224.0" />
+    </edge>
+    <edge source="hippocratic.footnotes.FootnotesException" target="Exception">
+      <point x="0.0" y="-14.5" />
+      <point x="144.5" y="1544.0" />
+      <point x="907.0364583333333" y="1544.0" />
+      <point x="-37.91666666666663" y="14.5" />
+    </edge>
+    <edge source="hippocratic.introduction.IntroductionException" target="Exception">
+      <point x="0.0" y="-14.5" />
+      <point x="1074.0" y="1564.0" />
+      <point x="952.5364583333333" y="1564.0" />
+      <point x="7.583333333333371" y="14.5" />
+    </edge>
+    <edge source="hippocratic.baseclass.HippocraticException" target="Exception">
+      <point x="0.0" y="-14.5" />
+      <point x="457.0" y="1554.0" />
+      <point x="922.2031249999999" y="1554.0" />
+      <point x="-22.75" y="14.5" />
+    </edge>
+    <edge source="hippocratic.title.TitleException" target="Exception">
+      <point x="0.0" y="-14.5" />
+      <point x="1362.5" y="1554.0" />
+      <point x="967.7031249999999" y="1554.0" />
+      <point x="22.75" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.7076012117873862" x="1572.0" y="1069.0" />
+  <SelectedNodes>
+    <node>BaseException</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+  </Categories>
+</Diagram>
+
