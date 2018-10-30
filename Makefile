@@ -23,6 +23,8 @@ endef
 export PRINT_HELP_PYSCRIPT
 BROWSER := python -c "$$BROWSER_PYSCRIPT"
 
+export GITHUBBUILDDIR = ../../$(notdir $(CURDIR))-html
+
 help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
@@ -43,43 +45,48 @@ clean-pyc: ## remove Python file artifacts
 	find . -name '__pycache__' -exec rm -fr {} +
 
 clean-test: ## remove test and coverage artifacts
-	rm -fr .tox/
-	rm -f .coverage
-	rm -fr htmlcov/
+	-rm -fr .tox/
+	-rm -f .coverage
+	-rm -fr htmlcov/
 
 lint: ## check style with flake8
-	flake8 hippocratic tests
+	flake8 exegis tests
 
 test: ## run tests quickly with the default Python
-
-		python setup.py test
+	python setup.py test
 
 test-all: ## run tests on every Python version with tox
 	tox
 
 coverage: ## check code coverage quickly with the default Python
-
-		coverage run --source hippocratic setup.py test
-
-		coverage report -m
-		coverage html
-		$(BROWSER) htmlcov/index.html
+	coverage run --source exegis setup.py test
+	coverage report -m
+	coverage html
+	$(BROWSER) htmlcov/index.html
 
 docs: ## generate Sphinx HTML documentation, including API docs
-	rm -f docs/source/hippocratic.rst
-	rm -f docs/source/modules.rst
-	sphinx-apidoc -f -o docs/source hippocratic
+	-rm -f docs/source/exegis.rst
+	-rm -f docs/source/modules.rst
+	sphinx-apidoc -f -o docs/source exegis
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
 	$(BROWSER) docs/_build/html/index.html
 
+gh-pages: ## generate and push sphinx HTML documentation to gh-pages on github
+	#cd docs && make gh-pages
+	-rm -f docs/source/exegis.rst
+	-rm -f docs/source/modules.rst
+	sphinx-apidoc -f -o docs/source exegis 
+	$(MAKE) -C docs clean
+	$(MAKE) -C docs gh-pages
+
 uml: ## Generate UML diagrams (png and svg format)
-	rm -f ./docs/images/classes_hippocratic.svg ./docs/images/classes_hippocratic.png
-	rm -f ./docs/images/packages_hippocratic.svg ./docs/images/packages_hippocratic.png
-	pyreverse -Akmy -o svg -p hippocratic hippocratic
-	pyreverse -Akmy -o png -p hippocratic hippocratic
-	mv ./classes_hippocratic.* ./docs/images/
-	mv ./packages_hippocratic.* ./docs/images/
+	-rm -f ./docs/images/classes_exegis.svg ./docs/images/classes_exegis.png
+	-rm -f ./docs/images/packages_exegis.svg ./docs/images/packages_exegis.png
+	pyreverse -Akmy -o svg -p exegis exegis
+	pyreverse -Akmy -o png -p exegis exegis
+	mv ./classes_exegis.* ./docs/images/
+	mv ./packages_exegis.* ./docs/images/
 
 servedocs: docs ## compile the docs watching for changes
 	watchmedo shell-command -p '*.rst' -c '$(MAKE) -C docs html' -R -D .

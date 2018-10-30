@@ -1,4 +1,4 @@
-"""Module to contains the configuration of the hippocratic software
+"""Module to contains the configuration of the exegis software
 
 :Authors: Nicolas Gruel <nicolas.gruel@manchester.ac.uk>
 
@@ -26,7 +26,7 @@ LOGGING = {
             'class': 'logging.FileHandler',
             'level': 'DEBUG',
             'formatter': 'default',
-            'filename': 'hippocratic.log',
+            'filename': 'exegis.log',
             'mode': 'w',
             'encoding': 'utf-8',
         },
@@ -45,7 +45,7 @@ LOGGING = {
 
 # Read logging configuration and create logger
 logging.config.dictConfig(LOGGING)
-logger = logging.getLogger('hippocratic')
+logger = logging.getLogger('exegis')
 
 # Some constants use in the creation of the XML
 XML_N_OFFSET = 3
@@ -54,7 +54,7 @@ XML_OSS = ' ' * XML_OFFSET_SIZE
 
 # XML template information
 try:
-    TEMPLATE_FNAME = pkg_resources.resource_filename('hippocratic',
+    TEMPLATE_FNAME = pkg_resources.resource_filename('exegis',
                                                      os.path.join(
                                                          'template',
                                                          'xml_template.xml'))
@@ -70,10 +70,9 @@ except FileNotFoundError:
 
 # Relaxng
 try:
-    RELAXNG_FNAME = pkg_resources.resource_filename('hippocratic',
-                                                     os.path.join(
-                                                         'template',
-                                                         'tei_all.rng'))
+    RELAXNG_FNAME = pkg_resources.resource_filename('exegis',
+                                                    os.path.join('template',
+                                                                 'tei_all.rng'))
 except (ModuleNotFoundError, KeyError):
     RELAXNG_FNAME = os.path.join('template', 'tei_all.rng')
 

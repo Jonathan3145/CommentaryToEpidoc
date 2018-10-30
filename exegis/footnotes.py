@@ -9,9 +9,9 @@ import re
 from collections import OrderedDict
 
 try:
-    from .baseclass import Hippocratic, logger
+    from .baseclass import Exegis, logger
 except ImportError:
-    from baseclass import Hippocratic, logger
+    from baseclass import Exegis, logger
 
 
 # Define an Exception
@@ -21,7 +21,7 @@ class FootnotesException(Exception):
     pass
 
 
-class Footnote(Hippocratic):
+class Footnote(Exegis):
     """Class Footnote which treat an individual footnote
 
     Attributes
@@ -36,7 +36,7 @@ class Footnote(Hippocratic):
         list which contains the app XML file.
     """
     def __init__(self, footnote=None, n_footnote=None, xml=None):
-        Hippocratic.__init__(self)
+        Exegis.__init__(self)
         self.footnote = footnote
         self.n_footnote = n_footnote
         if xml is None:
@@ -317,7 +317,7 @@ class Footnotes(object):
     Attributes
     ----------
     footnotes : list, str, OrderedDict, dict
-        List which contains the whole set of footnote from the hippocratic
+        List which contains the whole set of footnote from the exegis
         file.
     """
 
@@ -419,7 +419,7 @@ class Footnotes(object):
             # Add initial XML to xml_app (for the apparatus XML file)
 
             self.xml.append('<app from="#begin_fn' + str(n_footnote) +
-                                 '" to="#end_fn' + str(n_footnote) + '">')
+                            '" to="#end_fn' + str(n_footnote) + '">')
 
             ft.check_endnote()
 

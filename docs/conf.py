@@ -33,7 +33,7 @@ project_root = os.path.dirname(cwd)
 # version is used.
 sys.path.insert(0, project_root)
 
-import hippocratic
+import exegis
 
 
 # -- General configuration ------------------------------------------------
@@ -61,7 +61,6 @@ extensions = ['sphinx.ext.autodoc',
 
 # PlantUML
 plantuml = 'java -jar ../utils/plantuml.jar'
-
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -263,7 +262,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'hippocratic_aphorisms.tex', project,
+    (master_doc, 'eXegis_manual.tex', project,
      author, 'manual'),
 ]
 
@@ -273,7 +272,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'hippocratic_aphorisms', project,
+    (master_doc, 'eXegis_manual', project,
      [author], 1)
 ]
 

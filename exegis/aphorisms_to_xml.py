@@ -22,7 +22,7 @@ If processing succeeds two XML files will be created in a folder called XML.
 The XML file names start with the text file base name and end in _main.xml (for
 the XML files will be file_1_main.xml and file_1_app.xml.
 
-If processing fails error messages will be saved in the hippocratic.log file.
+If processing fails error messages will be saved in the exegis.log file.
 
 The commentaries should be utf-8 text files with the format as documented
 in the associated documentation (docs/_build/index.html).
@@ -41,13 +41,13 @@ try:
     from .introduction import Introduction
     from .title import Title, TitleException
     from .footnotes import Footnotes, FootnotesException
-    from .baseclass import Hippocratic, logger, TEMPLATE_FNAME, RELAXNG_FNAME
+    from .baseclass import Exegis, logger, TEMPLATE_FNAME, RELAXNG_FNAME
 except ImportError:
     from analysis import references, footnotes, AnalysisException
     from introduction import Introduction, IntroductionException
     from title import Title, TitleException
     from footnotes import Footnotes, FootnotesException
-    from baseclass import Hippocratic, logger, TEMPLATE_FNAME, RELAXNG_FNAME
+    from baseclass import Exegis, logger, TEMPLATE_FNAME, RELAXNG_FNAME
 
 
 # Define an Exception
@@ -57,7 +57,7 @@ class AphorismsToXMLException(Exception):
     pass
 
 
-class Process(Hippocratic):
+class Process(Exegis):
     """Class to main hypocratic aphorism text to produce a TEI XML file.
 
     Attributes
@@ -81,7 +81,7 @@ class Process(Hippocratic):
                  folder=None,
                  doc_num=1):
 
-        Hippocratic.__init__(self)
+        Exegis.__init__(self)
         self.folder = folder
         self.fname = fname
         self.doc_num = doc_num
@@ -125,7 +125,7 @@ class Process(Hippocratic):
         self.xml_file = os.path.join('XML', self.base_name + '.xml')
 
     def open_document(self, fname=None):
-        """Method to open and read the hippocratic document.
+        """Method to open and read the exegis document.
 
         Parameters
         ----------
@@ -207,7 +207,7 @@ class Process(Hippocratic):
     def divide_document(self):
         """Method to divide the document in the three main parts.
 
-        An hippocratic document si composed in three or four main parts:
+        An exegis document si composed in three or four main parts:
 
         - The introduction (optional)
         - The title
@@ -412,7 +412,8 @@ class Process(Hippocratic):
             logger.info(info)
             _wits = []
             for w in wits:
-                _wits.append(self.xml_oss * self.xml_n_offset + '<witness> {} </witness>'.format(w))
+                _wits.append(self.xml_oss * self.xml_n_offset +
+                             '<witness> {} </witness>'.format(w))
             xml = re.sub('#INSERTWITNESSES#', '\n'.join(_wits), xml)
 
         if self.xml:
@@ -430,10 +431,9 @@ class Process(Hippocratic):
             relaxng_doc = etree.parse(RELAXNG_FNAME)
             self.relaxng_fname = RELAXNG_FNAME
 
-
         relaxng = etree.RelaxNG(relaxng_doc)
         xml = etree.parse(self.xml_file)
-        #relaxng.validate(xml)
+        # relaxng.validate(xml)
         # if not relaxng(xml):
         #     logger.error("INVALID")
         # else:
@@ -443,13 +443,13 @@ class Process(Hippocratic):
         try:
             relaxng.assertValid(xml)
             logger.info('The document {} created is '
-                         'valide corresponding '
-                         'to the Relaxng declared '
+                        'valid corresponding '
+                        'to the Relaxng declared '
                         'or used'.format(self.xml_file))
 
         except etree.DocumentInvalid:
             logger.error('The document {} created is '
-                         'not valide corresponding '
+                         'not valid corresponding '
                          'to the Relaxng declared '
                          'or used'.format(self.xml_file))
             raise AphorismsToXMLException
@@ -499,7 +499,7 @@ class Process(Hippocratic):
 
         """
 
-        # Open and read the hippocratic document
+        # Open and read the exegis document
         self.open_document()
 
         debug = 'Open document {}'.format(self.fname)
@@ -553,6 +553,14 @@ class Process(Hippocratic):
         # =====================================
         logger.debug('Start aphorisms and commentaries treatment')
         for k in self._aph_com:
+            if not len(self._aph_com[k]):
+                error = ('There are no aphorisms  in the file. '
+                         'It can be because of the numeration. '
+                         'Verify that the it is starting at 1 or 1. not .1 '
+                         '(the point can be after the number but not before.')
+                logger.error(error)
+                raise AphorismsToXMLException
+
             aphorism = self._aph_com[k][0]
             commentaries = self._aph_com[k][1:]
 

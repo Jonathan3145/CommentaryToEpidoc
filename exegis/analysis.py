@@ -152,7 +152,7 @@ def footnotes(string_to_process, next_footnote):
     Raises
     ------
     AnalysisException
-        if footnote in commentary connot be defined.
+        if footnote in commentary can not be defined.
     """
     # Create lists to contain the XML
     xml_main = []

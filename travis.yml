@@ -1,13 +1,23 @@
-#Note: Numpydoc (needed for building documentation) is available only for 2.7 or >=3.4 and sip force the usage of python 3.5 (idem for documentation)
-
 matrix:
   include:
     - os: linux
       dist: trusty
       sudo: required
       language: python
-      python: 3.5
+      python: 3.2
       env: TOXENV=py35
+    - os: linux
+      dist: trusty
+      sudo: required
+      language: python
+      python: 3.3
+      env: TOXENV=py35
+    - os: linux
+      dist: trusty
+      sudo: required
+      language: python
+      python: 3.4
+      env: TOXENV=py34
     - os: linux
       dist: trusty
       sudo: required
@@ -46,26 +56,24 @@ install:
     esac
   - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION
   - source activate test-environment
+  - pip install -r requirements-dev.txt
 
-before_script:
+build_script:
   # Build the compiled extension
-  - python setup.py build
+  - python setup.py build"
+
+test_script:
+    # Run the project tests
+    - pytest
 
 after_test:
   # If tests are successful, create binary packages for the project.
   - python setup.py bdist_wheel
 
 script:
-  - pip install -r requirements.txt
-  - pip install pytest testfixtures
-  - python setup.py install
-  # Run the project tests
-  - pytest
-
-after_test:
-  - pip install -r requirements-dev.txt
-  # Build documentation on linux
-  - if [  "$TRAVIS_OS_NAME" != "osx" ]; then
+    - python setup.py install
+    - pytest
+    - if [  "$TRAVIS_OS_NAME" != "osx" ]; then
         sudo apt-get update -qy;
         sudo apt-get install graphviz inkscape;
         sudo apt-get install texlive-latex-base;
@@ -79,8 +87,4 @@ after_test:
         cd docs;
         make html;
         make latexpdf;
-    fi
-
-before_deploy:
-  # If tests are successful, create binary packages for the project.
-  - python setup.py bdist_wheel
+     fi

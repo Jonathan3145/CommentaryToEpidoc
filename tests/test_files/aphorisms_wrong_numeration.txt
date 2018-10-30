@@ -1,0 +1,60 @@
+This is title
+++
+Text present between the ++ character is part of the introduction
+++
+.1
+First aphorism.
+A commentary for first aphorism.
+Another commentary.
+2.
+Second aphorism [W2 W3].
+Second aphorism does have a witnesses reference from W2 and W3. Witnesses are between square brackets and separate by a space.
+
+3.
+Third aphorism with other witnesses [W1 W5] and [W3 W8].
+A footnote with an omission*1*.
+A footnote with omission in multiple witnesses*2* separated by a comma.
+A footnote with omission in W1 and conieci*3*.
+A footnote with omission and conieci and multiple witnesses*4*.
+A footnote with omission and conieci with a text in witness W1*5*.
+A footnote *6*
+A footnote *7*
+A footnote *8*
+A footnote *9*
+A footnote *10*
+A footnote *11*
+A footnote *12*
+A footnote *13*
+A footnote *14*
+A footnote *15*
+A footnote *16*
+A footnote *17*
+A footnote *18*
+A footnote *19*
+A footnote *20*
+
+4
+fourth aphorism.
+Numbering without point is authorized but not advised.
+Empty lines are not taken into account and can be used to improve visual aspect.
+
+*1*aaaa bbbb cccc ] W1: om. W2.
+*2*aaaa bbbb cccc ] W1, W2, W3: om. W4, W5, W6.
+*3*ssss ] conieci: om. W1.
+*4*ssss ] conieci: om. W1, W2.
+*5*ssss tttt ] conieci: aaaa bbbb W1: om. W2.
+*6*ssss ] correxi: om. W1.
+*7*ssss ] correxi: om. W1, W2.
+*8*ssss tttt ] correxi: aaaa bbbb L5: om. Y.
+*9*ssss tttt ] correxi: aaaa bbbb W1, W2, W3: om. W4, W5, W6.
+*10*aaaa bbbb cccc ] add. dddd eeee ffff W1.
+*11*aaaa bbbb cccc ] add. dddd eeee ffff W1, W2.
+*12*aaaa bbbb cccc ] add. dddd eeee ffff W1: gggg hhhh iiii W2.
+*13*aaaa bbbb cccc ] conieci: dddd eeee ffff W1, W2.
+*14*aaaa bbbb cccc ] conieci: dddd eeee ffff W1: gggg hhhh iiii W2.
+*15*aaaa bbbb cccc ] correxi: dddd eeee ffff W1, WW2.
+*16*aaaa bbbb cccc ] correxi: dddd eeee ffff W1: gggg hhhh iiii W2.
+*17*aaaa bbbb cccc ] W1: dddd eeee ffff W2.
+*18*aaaa bbbb cccc ] W1, W2, W3: dddd eeee ffff W4, W5, W6.
+*19*aaaa bbbb cccc ] W1, W2, W3: dddd eeee ffff W4, W5, W6.
+*20*aaaa bbbb cccc ] W1, W2, W3: dddd eeee ffff W4, W5, W6. ; an example note

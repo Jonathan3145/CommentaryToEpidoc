@@ -7,10 +7,10 @@ the title in the hippocratic aphorism document.
 """
 try:
     from .analysis import references, footnotes
-    from .baseclass import Hippocratic, logger
+    from .baseclass import Exegis, logger
 except ImportError:
     from analysis import references, footnotes
-    from baseclass import Hippocratic, logger
+    from baseclass import Exegis, logger
 
 
 # Define an Exception
@@ -20,13 +20,13 @@ class TitleException(Exception):
     pass
 
 
-class Title(Hippocratic):
+class Title(Exegis):
     """Class Title which will create the title XML part
 
     Attributes
     ----------
     title : str
-        string which contain the title of the hippocratic aphorisms
+        string which contain the title of the exegis aphorisms
         document.
 
     doc_num : int
@@ -37,7 +37,7 @@ class Title(Hippocratic):
         can be present.
     """
     def __init__(self, title, next_footnote=1, doc_num=1):
-        Hippocratic.__init__(self)
+        Exegis.__init__(self)
         self.title = title
         self.doc_num = doc_num
         self.next_footnote = next_footnote

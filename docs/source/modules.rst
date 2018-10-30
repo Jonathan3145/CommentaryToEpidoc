@@ -1,7 +1,7 @@
-hippocratic
-===========
+exegis
+======
 
 .. toctree::
    :maxdepth: 4
 
-   hippocratic
+   exegis

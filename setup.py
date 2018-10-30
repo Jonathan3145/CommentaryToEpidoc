@@ -10,21 +10,20 @@ with open('HISTORY.rst') as history_file:
 
 package_data = os.path.join('template', '*')
 
-
 requirements = [
-        'docopt',
-        'lxml'
+        'docopt>=0.6',
+        'lxml>=4.2'
         ]
 
 test_requirements = [
-        'pytest',
-        'testfixtures',
+        'pytest>=3.6',
+        'testfixtures>=6.1',
         ]
 
-setup(name='hippocratic',
-      packages=['hippocratic'],
+setup(name='exegis',
+      packages=['exegis'],
       version='0.5.0',
-      description=('Software to convert hippocratic text files '
+      description=('Software to convert exegis text files '
                    'to in XML files.'),
       long_description=readme,
       author='Nicolas Gruel, Jonathan Boyle',
@@ -54,12 +53,12 @@ setup(name='hippocratic',
           'doc': ['sphinx', 'numpydoc']},
       entry_points={
           'console_scripts': [
-              'AphorismsToXML = hippocratic.main:main']
+              'exegis = exegis.main:main']
                     },
       package_data={
           '': ['LICENSE'],
-          #'hippocratic': [os.path.join('template', 'xml_main_template.xml')],
-          'hippocratic': [package_data],
+          #'exegis': [os.path.join('template', 'xml_main_template.xml')],
+          'exegis': [package_data],
       },
       include_package_data=True,
       license='MIT',

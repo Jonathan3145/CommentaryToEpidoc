@@ -5,15 +5,15 @@ Architecture
 Package Diagram
 ===============
 
-.. .. image:: ../images/packages_hippocratic.pdf
-.. image:: ../images/packages_hippocratic.*
+.. .. image:: ../images/packages_exegis.pdf
+.. image:: ../images/packages_exegis.*
 
 Class Diagram
 =============
 
 .. uml::
 
-    class Hippocratic {
+    class Exegis {
         xml
         xml_oss
         xml_n_offset
@@ -98,10 +98,10 @@ Class Diagram
         xml_main()
     }
 
-    Hippocratic <|-- Title
-    Hippocratic <|-- Footnote
-    Hippocratic <|-- Process
-    Hippocratic <|-- Introduction
+    Exegis <|-- Title
+    Exegis <|-- Footnote
+    Exegis <|-- Process
+    Exegis <|-- Introduction
 
     Process *-- Footnotes
 

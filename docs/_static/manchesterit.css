@@ -57,7 +57,9 @@ cite {
 }
 
 .navbar-brand img {
-    padding-right: 200px;
+    /*padding-right: 200px;*/
+    height: 70px;
+    object-fit: contain;
 }
 
 .navbar-nav > li > a {
@@ -90,7 +92,7 @@ div.bs-sidenav {
     background-color: #030000;
 }
 
-.bs-sidenav .nav > li > a { 
+.bs-sidenav .nav > li > a {
     line-height: 2em;
     color: #fff;
     border-left: 3px solid #000

@@ -15,7 +15,7 @@ Types of Contributions
 Report Bugs
 ~~~~~~~~~~~
 
-Report bugs at https://github.com/UoMResearchIT/CommentaryToEpidoc/issues.
+Report bugs at https://github.com/UoMResearchIT/eXegis/issues.
 
 If you are reporting a bug, please include:
 
@@ -38,15 +38,15 @@ and "help wanted" is open to whoever wants to implement it.
 Write Documentation
 ~~~~~~~~~~~~~~~~~~~
 
-AphorismToXML could always use more documentation, whether as part of the
-official AphorismToXML docs, in docstrings, or even on the web in blog posts,
+eXegis could always use more documentation, whether as part of the
+official eXegis docs, in docstrings, or even on the web in blog posts,
 articles, and such.
 
 Submit Feedback
 ~~~~~~~~~~~~~~~
 
 The best way to send feedback is to file an issue at
-https://github.com/UoMResearchIT/CommentaryToEpidoc/issues.
+https://github.com/UoMResearchIT/eXegis/issues.
 
 If you are proposing a feature:
 
@@ -58,12 +58,12 @@ If you are proposing a feature:
 Get Started!
 ------------
 
-Ready to contribute? Here's how to set up `AphorismToXML` for local development.
+Ready to contribute? Here's how to set up `eXegis` for local development.
 
-1. Fork the `AphorysmToXML` repo on GitHub.
+1. Fork the `eXegis` repo on GitHub.
 2. Clone your fork locally::
 
-    $ git clone git@github.com:your_name_here/AphorismToXML.git
+    $ git clone git@github.com:your_name_here/eXegis.git
 
 3. It is advised to use one of the following method:
 
@@ -71,15 +71,15 @@ Ready to contribute? Here's how to set up `AphorismToXML` for local development.
       virtualenvwrapper installed, this is how you set up your fork for
       local development::
 
-         $ mkvirtualenv AphorismToXML
-         $ cd AphorismToXML/
+         $ mkvirtualenv eXegis
+         $ cd eXegis/
          $ python setup.py develop
 
    b. Install conda https://conda.io/miniconda.html ::
 
          $ conda create -n aphorysms python=3
          $ source activate aphorysms  # activation of the environment on linux
-         $ cd AphorismToXML
+         $ cd eXegis
          $ python setup.py develop
 
 4. Create a branch for local development::
@@ -91,7 +91,7 @@ Ready to contribute? Here's how to set up `AphorismToXML` for local development.
 5. When you're done making changes, check that your changes pass flake8 and
    the tests, including testing other Python versions with tox::
 
-    $ flake8 AphorismToXML tests
+    $ flake8 eXegis tests
     $ python setup.py test or py.test
     $ tox
 
@@ -115,7 +115,7 @@ Before you submit a pull request, check that it meets these guidelines:
    your new functionality into a function with a docstring, and add the
    feature to the list in README.rst.
 3. The pull request should work for Python 3.5 and 3.6. Check
-   https://travis-ci.org/gruel/AphorismToXML/pull_requests
+   https://travis-ci.org/gruel/eXegis/pull_requests
    and make sure that the tests pass for all supported Python versions.
 
 Tips

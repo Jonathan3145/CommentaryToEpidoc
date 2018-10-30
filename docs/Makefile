@@ -1,6 +1,9 @@
 # Makefile for Sphinx documentation
 #
 
+#Download plantuml.jar in utils if not present:
+
+
 # Convert svg to pdf for latex creation
 SOURCEDIR     = source
 #IMAGEDIRS can be a list of directories that contain SVG files and are relative to the SOURCEDIR
@@ -26,16 +29,25 @@ SPHINXBUILD   = sphinx-build
 PAPER         =
 BUILDDIR      = _build
 
+ifeq ($(strip $(GITHUBBUILDDIR)),)
+	GITHUBBUILDDIR = ../../eXegis-html/
+endif
+
+PDFBUILDDIR   = /tmp
+PDFNAME       = eXegis_manual.pdf
+PDF           = ../manual.pdf
+
 # Internal variables.
 PAPEROPT_a4     = -D latex_paper_size=a4
 PAPEROPT_letter = -D latex_paper_size=letter
 ALLSPHINXOPTS   = -d $(BUILDDIR)/doctrees $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
 
-.PHONY: help clean html dirhtml singlehtml pickle json htmlhelp qthelp devhelp epub latex latexpdf pdf text man changes linkcheck doctest
+.PHONY: help clean html gh-pages dirhtml singlehtml pickle json htmlhelp qthelp devhelp epub latex latexpdf pdf text man changes linkcheck doctest
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
 	@echo "  html      to make standalone HTML files"
+	@echo "  gh-pages to create the html pages compatible with github gh-pages and upload them to github gh-pages"
 	@echo "  dirhtml   to make HTML files named index.html in directories"
 	@echo "  singlehtml to make a single large HTML file"
 	@echo "  pickle    to make pickle files"
@@ -52,14 +64,30 @@ help:
 	@echo "  changes   to make an overview of all changed/added/deprecated items"
 	@echo "  linkcheck to check all external links for integrity"
 	@echo "  doctest   to run all doctests embedded in the documentation (if enabled)"
+	@echo "  plantuml.jar to download plantuml file if needed"
 
 clean:
 	-rm -rf $(BUILDDIR)/*
+	-rm -rf $(GITHUBBUILDDIR)/*
 
 html:
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
+
+plantuml.jar:
+	#curl -s -S -L -f https://downloads.sourceforge.net/project/plantuml/$@ -z $@ -o $@.tmp && mv -f $@.tmp $@ 2>/dev/null || rm -f $@.tmp $@
+	#mv $@ utils/
+	[ -f utils/plantuml.jar ] && echo "plantuml.jar exist" || wget -c https://downloads.sourceforge.net/project/plantuml/$@
+	mkdir -p utils
+	mv $@ utils/ && echo "plantuml.jar installed" || echo "plantuml.jar already present"
+
+gh-pages: $(PDFs) plantuml.jar
+	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(GITHUBBUILDDIR)
+	@echo
+	@echo "Build finished. The HTML pages are in $(GITHUBBUILDDIR)."
+	@echo "Update gh-pages and push to github"
+	cd $(GITHUBBUILDDIR) ; git add . ; git commit -m "rebuilt docs" ; git push origin gh-pages
 
 dirhtml:
 	$(SPHINXBUILD) -b dirhtml $(ALLSPHINXOPTS) $(BUILDDIR)/dirhtml
@@ -155,5 +183,5 @@ doctest:
 	      "results in $(BUILDDIR)/doctest/output.txt."
 
 clean:
-	-rm -rf $(BUILDDIR)/*
+	-rm -rf $(BUILDDIR)/* $(GITHUBBUILDDIR)/html
 	-rm $(PDFs)

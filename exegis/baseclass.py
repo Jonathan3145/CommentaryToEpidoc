@@ -14,13 +14,13 @@ except ImportError:
 
 
 # Define an Exception
-class HippocraticException(Exception):
+class ExegisException(Exception):
     """Class for exception
     """
     pass
 
 
-class Hippocratic(object):
+class Exegis(object):
     """Basic class used for the software.
 
     Attributes

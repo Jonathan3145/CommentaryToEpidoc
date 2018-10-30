@@ -7,10 +7,10 @@ the introduction (if present) in the hippocratic aphorism document.
 """
 try:
     from .analysis import references, footnotes
-    from .baseclass import Hippocratic, logger
+    from .baseclass import Exegis, logger
 except ImportError:
     from analysis import references, footnotes
-    from baseclass import Hippocratic, logger
+    from baseclass import Exegis, logger
 
 
 # Define an Exception
@@ -20,14 +20,14 @@ class IntroductionException(Exception):
     pass
 
 
-class Introduction(Hippocratic):
+class Introduction(Exegis):
     """Class Introduction which will create the introduction XML part
 
     Attributes
     ----------
 
     introduction : str
-        string which contain the introduction of the hippocratic aphorisms
+        string which contain the introduction of the exegis aphorisms
         document.
 
     next_footnote : int
@@ -41,7 +41,7 @@ class Introduction(Hippocratic):
     """
 
     def __init__(self, introduction, next_footnote):
-        Hippocratic.__init__(self)
+        Exegis.__init__(self)
         self.introduction = introduction
         self.next_footnote = next_footnote
 

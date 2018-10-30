@@ -1,0 +1,28 @@
+# The versions are the one for which it eXegis is passing all tests and working sucessfully.
+# It should work with lower or upper versions depending on API break.
+
+# Absolutely needed by eXegis
+docopt>=0.6
+lxml>=4.2
+
+# Codinstyle (PEP8)
+pylint>=1.9
+flake8>=3.5
+
+# Unit tests
+pytest>=3.6
+testfixtures>=6.1
+
+# Code coverage
+pytest-cov>=2.5
+coverage>=4.5
+
+# Documentation
+sphinx>=1.7
+sphinx-bootstrap-theme>=0.6
+numpydoc>=0.7
+pyqt5>=5.10
+sphinxcontrib-plantuml>=0.8
+
+# Distribution
+wheel>=0.31

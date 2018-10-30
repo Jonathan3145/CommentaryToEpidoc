@@ -1,5 +1,15 @@
-Hyppocratic Aphorisms
+Hippocratic Aphorisms
 =====================
+
+.. image:: https://travis-ci.org/gruel/eXegis.svg?branch=master
+   :target: https://travis-ci.org/gruel/eXegis
+
+.. image:: https://ci.appveyor.com/api/projects/status/4t9ncyaqcm8g470i?svg=true
+   :target: https://ci.appveyor.com/project/gruel/aphorismtotei
+
+.. image:: https://img.shields.io/badge/License-BSD%203--Clause-blue.svg
+   :target: https://opensource.org/licenses/BSD-3-Clause
+
 
 AphorismToXML
 -------------
@@ -32,13 +42,13 @@ Clone the code from the github repository:
 
 .. code:: commandline
 
-    git clone https://github.com/UoMResearchIT/CommentaryToEpidoc.git
+    git clone https://github.com/UoMResearchIT/eXegis.git
 
 go into the project directory:
 
 .. code:: commandline
 
-    cd CommentaryToEpidoc
+    cd eXegis
 
 Install the package:
 
@@ -55,19 +65,19 @@ with:
 
 .. code:: commandline
 
-    pip install -U -r requirements.txt --user 
+    pip install -U -r requirements-dev.txt --user
 
 Usage
 -----
 
 When the package is installed, it should be available in your ``PATH``
-under the name ``AphorismToXML``.
+under the name ``eXegis``.
 
 To use it start a terminal and execute the command:
 
 .. code:: commandline
 
-    AphorismToXML <path or file> 
+    exegis <path or file>
 
 where:
 
@@ -76,7 +86,7 @@ where:
 -  ``file`` is the name of the individual file to analyse and convert to
    XML.
 
-At the end of the treatment a log file called *hippocratic.log* will be
+At the end of the treatment a log file called *exegis.log* will be
 found in the directory of the execution. It will contains information,
 errors and warning related to the process.
 

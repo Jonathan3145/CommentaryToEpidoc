@@ -23,14 +23,14 @@ except ImportError:
 
 
 def main(args=None):
-    """Run AphorismsToXML scripts to produce the TEI XML
+    """Run eXegis scripts to produce the TEI XML
 
     Command line::
 
         Usage:
-            AphorismsToXML <files> [--xml-template=<tmpl>] [--relaxng=<relax>]
-            AphorismsToXML -h | --help
-            AphorismsToXML --version
+            exegis <files>  [--relaxng=<relax>]
+            exegis -h | --help
+            exegis --version
 
         Options:
             -h --help                   Show this screen.
@@ -39,11 +39,11 @@ def main(args=None):
             --relaxng=<name>            Name of the Relaxng file use to validate the resulting XML
 
         Examples:
-            AphorismsToXML TextFiles
-            AphorismsToXML Textfiles --xml-template=template.xml
-            AphorismsToXML Textfiles --relaxng=tei.rng
-            AphorismsToXML Textfiles --xml-template=template.xml --relaxng=tei.rng
-            
+            exegis TextFiles
+            exegis Textfiles --xml-template=template.xml
+            exegis Textfiles --relaxng=tei.rng
+            exegis Textfiles --xml-template=template.xml --relaxng=tei.rng
+
 
     Raises
     ------

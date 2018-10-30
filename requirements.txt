@@ -1,0 +1,6 @@
+# The versions are the one for which it eXegis is passing all tests and working sucessfully.
+# It should work with lower or upper versions depending on API break.
+
+# Absolutely needed by eXegis
+docopt>=0.6
+lxml>=4.2

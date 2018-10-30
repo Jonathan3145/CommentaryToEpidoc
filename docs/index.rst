@@ -1,6 +1,6 @@
-#########################
-Hippocratic aphorisms XML
-#########################
+##################################
+Hippocratic aphorisms XML : eXegis
+##################################
 
 .. sidebar:: Summary
 
@@ -16,7 +16,7 @@ Hippocratic aphorisms XML
 Overview
 ########
 
-A Python module called AphorismToXML has been written by Jonathan
+A Python module called eXegis has been written by Jonathan
 Boyle and Nicolas Gruel (University of Manchester) to convert transcribed
 commentaries to `TEI <http://www.tei-c.org/index.xml>`_ compatible XML.
 
@@ -43,7 +43,7 @@ Tables of Contents
    source/xml_files
    source/develop
    source/uml
-   source/hippocratic
+   source/exegis
 ..   source/code
 
 

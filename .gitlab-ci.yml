@@ -7,7 +7,7 @@ test:
   - apt-get install -y texlive-fonts-recommended
   - apt-get install -y texlive-fonts-extra
   - apt-get install -y texlive-latex-extra
-  - pip install -r requirements_dev.txt
+  - pip install -r requirements-dev.txt
   - wget http://sourceforge.net/projects/plantuml/files/plantuml.jar/download
   - mkdir docs/utils
   - mv download docs/utils/plantuml.jar
